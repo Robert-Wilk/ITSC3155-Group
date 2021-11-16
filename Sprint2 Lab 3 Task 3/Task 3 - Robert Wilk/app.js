@@ -61,52 +61,55 @@ function fetchProductList() {
 }
 
 function fetchOneProduct($id) {
-    // TODO fix picture error and change back search button to FetchProductList()
-    jsonObj = [];
-    item = {};
+
+    // Make Variables for item and product
+    var item;
     var product;
 
-    !($.trim($('#title').val()) == '') ? item ["title"] = $('#title').val(): '';
-    !($.trim($('#operating_system').val()) == '') ? item ["operating_system"] = $('#operating_system').val(): '';
-    !($.trim($('#min_price').val()) == '') ? item ["price_from"] = $('#min_price').val(): '';
-    !($.trim($('#max_price').val()) == '') ? item ["price_to"] = $('#max_price').val(): '';
-
-    jsonObj.push(item);
-
+    // Create ajax request to API
     $.ajax({
-        url: Url+'GetOneProduct',
-        type: 'GET',
-        dataType: 'json',
-        contentType: 'text/plain',
-        data: jsonObj[0],
+        url: Url+'GetOneProduct',    // http://18.220.85.60/api/GetOneProduct
+        type: 'GET',                 // GET request
+        dataType: 'json',            // JSON data type
+        data: {"product_id":$id},    // input = {"product_id":$id}
+        contentType: 'text/plain',   // Output type = plain text
 
+        // On success do this
         success: function (data) {
 
-            product = '<div class="col-sm-6 col-md-4 col-lg-3 mt-4" id="product'+item['id']+'">\n' +
+            // Get data from request
+            $.each(data['data']['List'], function(i, item) {
+
+                // Get product details and add HTML to it to be rendered (HTML from fetchProductList() function)
+                product = '<div class="col-sm-6 col-md-4 col-lg-3 mt-4" id="product' + item['id'] + '">\n' +
                     '            <div class="card card-inverse card-info">\n' +
-                    '                <img class="card-img-top" src="'+item['image']+'">\n' +
+                    '                <img class="card-img-top" src="' + item['image'] + '">\n' +
                     '                <div class="card-block">\n' +
-                    '                    <h4><span class="badge badge-danger">'+item['price']+'</span></h4>\n' +
+                    '                    <h4><span class="badge badge-danger">' + item['price'] + '</span></h4>\n' +
                     '                    <div class="meta card-text">\n' +
                     '                        <a style="color: deepskyblue">Category - Cell Phones</a>\n' +
                     '                    </div>\n' +
                     '                    <div class="card-text">\n' +
-                    '                        '+item['title']+'\n'
+                    '                        ' + item['title'] + '\n'
                     '                    </div>\n' +
                     '                </div>\n' +
                     '                <div class="card-footer">\n' +
                     '                    <small>More information ...</small>\n' +
-                    '                    <button class="btn btn-info float-right btn-sm" onclick="fetchOneProduct('+item['id']+')">Detail</button>\n' +
+                    '                    <button class="btn btn-info float-right btn-sm" onclick="fetchOneProduct(' + item['id'] + ')">Detail</button>\n' +
                     '                </div>\n' +
                     '                <div class="card-footer">\n' +
-                    '                    <button class="btn btn-info float-right btn-sm" onclick="addToCart('+item['id']+')">Add to Cart</button>\n' +
+                    '                    <button class="btn btn-info float-right btn-sm" onclick="addToCart(' + item['id'] + ')">Add to Cart</button>\n' +
                     '                </div>\n' +
                     '            </div>\n' +
                     '        </div>';
+            });  // End Function
 
+            // Put Product on website
             $('#items').html(product);
 
         },
+
+        // On fail alert user
         error: function (data) {
             alert("Error while fetching data.");
         }
@@ -163,6 +166,7 @@ function fetchComments($id) {
     });
 }
 
+// THIS FUNCTION USES OUR FUNCTION
 function setComment($id) {
 
     var message =$('#message-text').val();
