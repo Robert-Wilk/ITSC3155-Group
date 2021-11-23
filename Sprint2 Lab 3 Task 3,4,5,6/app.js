@@ -195,6 +195,21 @@ function setComment($id) {
 
 function addToCart($id) {
     // function body
+   $.ajax({
+        url: Url + 'AddToCart',
+        type: 'POST',
+        dataType: 'json',
+        data: {'product_id' : $product_id, 'email' : $email},
+        contentType: 'text/plain',
+
+        success: function (data) {
+                toShoppingCart();
+        },
+        error: function (data) {
+            alert("Error while fetching data.");
+        }
+    });
+
 }
 
 function toShoppingCart(){
