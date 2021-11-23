@@ -53,10 +53,10 @@ function deleteItem($id) {
     //function body
 
     $.ajax({
-        url: Url + 'Cart/{id}',
+        url: Url + 'Cart/' + $id,
         type: 'delete',
         dataType: 'json',
-        data: {"email":$email},
+        data: {"email":email},
         contentType: 'text/plain',
         success: function (data) {
             itemCount = itemCount - 1;
