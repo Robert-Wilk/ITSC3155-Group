@@ -68,10 +68,10 @@ function fetchOneProduct($id) {
 
     // Create ajax request to API
     $.ajax({
-        url: Url + 'GetOneProduct',    // http://18.220.85.60/api/GetOneProduct
+        url: Url+'GetOneProduct',    // http://18.220.85.60/api/GetOneProduct
         type: 'GET',                 // GET request
         dataType: 'json',            // JSON data type
-        data: {"product_id" : $id},    // input = {"product_id":$id}
+        data: {"product_id":$id},    // input = {"product_id":$id}
         contentType: 'text/plain',   // Output type = plain text
 
         // On success do this
@@ -195,20 +195,22 @@ function setComment($id) {
 
 function addToCart($id) {
     // function body
-
    $.ajax({
         url: Url + 'AddToCart',
         type: 'POST',
         dataType: 'json',
         data: {'product_id' : $product_id, 'email' : $email},
         contentType: 'text/plain',
+
         success: function (data) {
                 toShoppingCart();
-    },
+        },
         error: function (data) {
             alert("Error while fetching data.");
         }
     });
+
+}
 
 function toShoppingCart(){
     let email =$.trim($('#email').val());
