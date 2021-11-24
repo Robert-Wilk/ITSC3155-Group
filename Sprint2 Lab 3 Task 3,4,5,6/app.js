@@ -192,34 +192,60 @@ function setComment($id) {
     });
 
 }
-
 function addToCart($id) {
-    // function body
-    var product_id;
-
+    // Validation function (toShoppingCart)
+    let email =$.trim($('#email').val());
+    console.log(email);
     if( email !='' ) {
         sessionStorage.setItem('email', email);
         window.location.href = './cart.html';
+
+        // Create ajax request to API
         $.ajax({
-            url: Url + 'AddToCart',
-            type: 'POST',
-            dataType: 'json',
-            data: {'product_id': $id, 'email' : email},
-            contentType: 'text/plain',
-    
-            success: function (data) {
-                    toShoppingCart();
-            },
-            error: function (data) {
-                alert("Error while fetching data.");
-            }
+            url: Url+'AddToCart',    // http://18.220.85.60/api/AddToCart
+            type: 'POST',            // GET request
+            dataType: 'json',        // JSON data type
+            cache: true,
+            async: true,
+            global: false,           // input = product id and email
+            data: JSON.stringify({"product_id": $id,"email": email}),
+            contentType: 'text/plain',   // Output type = plain text
         });
-    
     } else {
         alert("Please enter your email at top of page.");
     }
-
 }
+
+// function addToCart($id) {
+//     // function body
+//     var product_id;
+//     var email = $.trim($('#email').val());
+//     if( email !='' ) {
+//         sessionStorage.setItem('email', email);
+//         window.location.href = './cart.html';
+//         $.ajax({
+//             url: Url + 'AddToCart',
+//             type: 'POST',
+//             dataType: 'json',
+//             data: {'product_id': $id, 'email' : email},
+//             contentType: 'text/plain',
+    
+//             success: function (data) {
+//                 fetchOneProduct($id);
+//             },
+//             error: function (data) {
+//                 alert("Error while fetching data.");
+//             }
+//         });
+    
+//     } else {
+//         alert("Please enter your email at top of page.");
+//     }
+    
+// }
+
+    
+
 
 function toShoppingCart(){
     let email =$.trim($('#email').val());
