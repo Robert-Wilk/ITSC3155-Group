@@ -1,4 +1,3 @@
-
 let list;
 let listAdd;
 let itemCount;
@@ -71,5 +70,18 @@ function deleteItem($id) {
 }
 
 function checkOut() {
-    // function body
+    
+    $.ajax({
+        url: Url + 'Cart',
+        type: 'put',
+        dataType: 'json',
+        data: {"email": email},
+        contentType: 'text/plain',
+        success: function (data) {
+            alert('Order details are sent to ' +email+ '\nData was successfully updated');
+        },
+        error: function (data) {
+            alert("Error while fetching data.");
+        }
+    });
 }
