@@ -166,7 +166,6 @@ function fetchComments($id) {
     });
 }
 
-// THIS FUNCTION USES OUR FUNCTION
 function setComment($id) {
 
     var message =$('#message-text').val();
@@ -192,6 +191,7 @@ function setComment($id) {
     });
 
 }
+
 function addToCart($id) {
     // Validation function (toShoppingCart)
     let email =$.trim($('#email').val());
@@ -215,37 +215,6 @@ function addToCart($id) {
         alert("Please enter your email at top of page.");
     }
 }
-
-// function addToCart($id) {
-//     // function body
-//     var product_id;
-//     var email = $.trim($('#email').val());
-//     if( email !='' ) {
-//         sessionStorage.setItem('email', email);
-//         window.location.href = './cart.html';
-//         $.ajax({
-//             url: Url + 'AddToCart',
-//             type: 'POST',
-//             dataType: 'json',
-//             data: {'product_id': $id, 'email' : email},
-//             contentType: 'text/plain',
-    
-//             success: function (data) {
-//                 fetchOneProduct($id);
-//             },
-//             error: function (data) {
-//                 alert("Error while fetching data.");
-//             }
-//         });
-    
-//     } else {
-//         alert("Please enter your email at top of page.");
-//     }
-    
-// }
-
-    
-
 
 function toShoppingCart(){
     let email =$.trim($('#email').val());
